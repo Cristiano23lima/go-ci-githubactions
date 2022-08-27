@@ -1,0 +1,16 @@
+name: ci-golang-workflow
+on: [push]
+jobs:
+  check-application:
+    runs-on: ubuntu-latest # image do ubuntu com sua ultima versão (latest)
+    steps:
+      # uso de action utilizase a nomenclatura "uses"
+      - uses: actions/checkout@v2 # baixa os dados do push para uma (nomerepositorio(usuario-github)/action_trabalhando@versao)
+      - uses: actions/setup-go@v2
+      # setar versão da ferramenta
+        with:
+          go-version: 1.15
+      # rodar as actions
+      - run: go test
+      - run: go run math.go
+
