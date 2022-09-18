@@ -5,6 +5,9 @@ on:
       - develop
 jobs:
   check-application:
+    strategy:
+      matrix:
+        go: ['1.14', '1.15']
     runs-on: ubuntu-latest # imagem do ubuntu com sua ultima versão (latest)
     steps:
       # uso de action utilizase a nomenclatura "uses"
@@ -12,7 +15,7 @@ jobs:
       - uses: actions/setup-go@v2
       # setar versão da ferramenta
         with:
-          go-version: 1.15
+          go-version: ${{ matrix.go }}
       # rodar as actions
       - run: go test
       - run: go run math.go
