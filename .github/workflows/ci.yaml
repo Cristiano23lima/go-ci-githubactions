@@ -5,7 +5,7 @@ on:
       - develop
 jobs:
   check-application:
-    runs-on: ubuntu-latest # image do ubuntu com sua ultima versão (latest)
+    runs-on: ubuntu-latest # imagem do ubuntu com sua ultima versão (latest)
     steps:
       # uso de action utilizase a nomenclatura "uses"
       - uses: actions/checkout@v2 # baixa os dados do push para uma (nomerepositorio(usuario-github)/nome_action_usada@versao)
