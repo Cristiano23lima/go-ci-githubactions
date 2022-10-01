@@ -1,5 +1,5 @@
 name: ci-golang-workflow
-on: 
+on:
   pull_request:
     branches:
       - develop
@@ -7,16 +7,27 @@ jobs:
   check-application:
     strategy:
       matrix:
-        go: ['1.14', '1.15']
+        go: ["1.14", "1.15"]
     runs-on: ubuntu-latest # imagem do ubuntu com sua ultima versão (latest)
     steps:
       # uso de action utilizase a nomenclatura "uses"
       - uses: actions/checkout@v2 # baixa os dados do push para uma (nomerepositorio(usuario-github)/nome_action_usada@versao)
       - uses: actions/setup-go@v2
-      # setar versão da ferramenta
+        # setar versão da ferramenta
         with:
-          go-version: ${{ matrix.go }}
+          go-version: 1.15
       # rodar as actions
       - run: go test
       - run: go run math.go
 
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v3
+        with:
+          push: false
+          tags: cristiano23lima/go-ci-githubactions:latest
